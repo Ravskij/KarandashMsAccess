@@ -17,6 +17,10 @@ public class ShopCollection {
         ShopList.add(i, shop);
     }
 
+    public void remove(int i){
+        ShopList.remove(i);
+    }
+
     public void print(){
         for(Shop p : ShopList){
             System.out.println(p.getProductname() + " продано " + p.getDate());

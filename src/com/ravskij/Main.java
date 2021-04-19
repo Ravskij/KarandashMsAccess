@@ -3,9 +3,8 @@ package com.ravskij;
 import java.util.Scanner;
 
 public class Main {
-
+    
     public static void main(String[] args) {
-        int count = 0;
         //Класс коллекции
         ShopCollection shopCollection = new ShopCollection();
         //Выбор пункта "меню"
@@ -20,7 +19,8 @@ public class Main {
                     3. Ввести данные
                     4. Вывести данные
                     5. Добавить данные в конец
-                    6. Добавить данные в указанную позицию""");
+                    6. Добавить данные в указанную позицию
+                    7. Удаление данных""");
 
 
             Scanner console = new Scanner(System.in);
@@ -46,6 +46,7 @@ public class Main {
                     //    System.out.println(savetofile);
                     break;
                 case 3:
+                    int count = 0;
                 //    p[count] = new Shop();
                     System.out.println("Введите наменование продукта: ");
                     Scanner nameofproduct = new Scanner(System.in);
@@ -81,7 +82,7 @@ public class Main {
                     shopCollection.print();
                     break;
                 case 6:
-                    //Класс для добавления наименования и даты
+                    //Класс для добавления наименования, даты и индекса
                     Scanner addprodname6 = new Scanner(System.in);
                     Scanner adddate6 = new Scanner(System.in);
                     Scanner addindex6 = new Scanner(System.in);
@@ -97,10 +98,20 @@ public class Main {
                     shopCollection.print();
                     break;
                 case 7:
-                //    Arrays.sort(p, new SortByDate());
-                //    for(Shop i : p){
-                //        System.out.println(i.getProductname() + " " + i.getDate());
-                //    }
+                    //Класс для добавления индекса
+                    Scanner addindex7 = new Scanner(System.in);
+                    System.out.println("Введите какую запись удалить: ");
+                    String index7str = addindex7.nextLine();
+                    //Преобразование строки к int
+                    int index7int = Integer.parseInt(index7str) - 1;
+                    shopCollection.remove(index7int);
+                    shopCollection.print();
+                    break;
+                case 8:
+                    //    Arrays.sort(p, new SortByDate());
+                    //    for(Shop i : p){
+                    //        System.out.println(i.getProductname() + " " + i.getDate());
+                    //    }
                     shopCollection.print();
                     break;
                 default:
