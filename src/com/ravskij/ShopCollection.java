@@ -13,9 +13,13 @@ public class ShopCollection {
         ShopList.add(shop);
     }
 
+    public void addin(int i, Shop shop){
+        ShopList.add(i, shop);
+    }
+
     public void print(){
         for(Shop p : ShopList){
-            System.out.println(p.getProductname() + " " + p.getDate());
+            System.out.println(p.getProductname() + " продано " + p.getDate());
         }
     }
 }

@@ -5,14 +5,24 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int number, count = 0;
+        int count = 0;
+        //Класс коллекции
+        ShopCollection shopCollection = new ShopCollection();
+        //Выбор пункта "меню"
+        int number;
+        //Бесконечный цикл для функционирования "меню"
         do {
-            System.out.println("Меню:" +
-                    "\n0. Закрыть программу" +
-                    "\n1. Открыть файл" +
-                    "\n2. Сохранить файл" +
-                    "\n3. Ввести данные" +
-                    "\n4. Вывести данные");
+            System.out.println("""
+                    Меню:
+                    0. Закрыть программу
+                    1. Открыть файл
+                    2. Сохранить файл
+                    3. Ввести данные
+                    4. Вывести данные
+                    5. Добавить данные в конец
+                    6. Добавить данные в указанную позицию""");
+
+
             Scanner console = new Scanner(System.in);
             number = console.nextInt();
             String text = "";
@@ -60,9 +70,37 @@ public class Main {
                     }
                     break;
                 case 5:
-                    ShopCollection shopCollection = new ShopCollection();
-                    shopCollection.add(new Shop("hello", "world"));
-                    shopCollection.add(new Shop("bb", "world!"));
+                    //Класс для добавления наименования и даты
+                    Scanner addprodname5 = new Scanner(System.in);
+                    Scanner adddate5 = new Scanner(System.in);
+                    System.out.println("Введите наименование: ");
+                    String productname5 = addprodname5.nextLine();
+                    System.out.println("Введите дату продажи: ");
+                    String date5 = adddate5.nextLine();
+                    shopCollection.add(new Shop(productname5, date5));
+                    shopCollection.print();
+                    break;
+                case 6:
+                    //Класс для добавления наименования и даты
+                    Scanner addprodname6 = new Scanner(System.in);
+                    Scanner adddate6 = new Scanner(System.in);
+                    Scanner addindex6 = new Scanner(System.in);
+                    System.out.println("Введите куда добавить запись: ");
+                    String index6str = addindex6.nextLine();
+                    //Преобразование строки к int
+                    int index6int = Integer.parseInt(index6str) - 1;
+                    System.out.println("Введите наименование: ");
+                    String productname6 = addprodname6.nextLine();
+                    System.out.println("Введите дату продажи: ");
+                    String date6 = adddate6.nextLine();
+                    shopCollection.addin(index6int, new Shop(productname6, date6));
+                    shopCollection.print();
+                    break;
+                case 7:
+                //    Arrays.sort(p, new SortByDate());
+                //    for(Shop i : p){
+                //        System.out.println(i.getProductname() + " " + i.getDate());
+                //    }
                     shopCollection.print();
                     break;
                 default:
