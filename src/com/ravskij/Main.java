@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         //Создание Коллекции shop
         ArrayList<Shop> shop = new ArrayList<>();
@@ -54,13 +54,22 @@ public class Main {
                     System.out.println("Введите куда добавить запись: ");
                     String index2str = addindex2.nextLine();
                     //Преобразование строки к int
-                    int index2int = Integer.parseInt(index2str) - 1;
-                    System.out.println("Введите наименование: ");
-                    String productname2 = addprodname2.nextLine();
-                    System.out.println("Введите дату продажи: ");
-                    String date2 = adddate2.nextLine();
-                    shop.add(index2int, new Shop(productname2, date2));
-                    System.out.println("Данные добавлены на " + index2int + " позицию");
+                    try {
+                        int index2int = Integer.parseInt(index2str) - 1;
+
+                        System.out.println("Введите наименование: ");
+                        String productname2 = addprodname2.nextLine();
+                        System.out.println("Введите дату продажи: ");
+                        String date2 = adddate2.nextLine();
+                        shop.add(index2int, new Shop(productname2, date2));
+                        System.out.println("Данные добавлены в " + index2str + " позицию");
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Невозможно добавить данные в " + index2str + " позицию");
+                    }
+                    catch (NumberFormatException ex){
+                        System.out.println("Введите число");
+                    }
                     break;
 
                 //Удаляет данные из указанной позиции
@@ -70,9 +79,17 @@ public class Main {
                     System.out.println("Введите какую запись удалить: ");
                     String index3str = addindex3.nextLine();
                     //Преобразование строки к int
-                    int index3int = Integer.parseInt(index3str) - 1;
-                    shop.remove(index3int);
-                    System.out.println("Данные из " + index3int + " позиции удалены");
+                    try {
+                        int index3int = Integer.parseInt(index3str) - 1;
+                        shop.remove(index3int);
+                        System.out.println("Данные из " + index3str + " позиции удалены");
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Невозможно удалить данные из " + index3str + " позиции");
+                    }
+                    catch (NumberFormatException ex){
+                        System.out.println("Введите число");
+                    }
                     break;
 
                 //Вывод данных
@@ -89,19 +106,25 @@ public class Main {
                     System.out.println("Введите название файла: ");
                     Scanner openname = new Scanner(System.in);
                     String opentofile = openname.nextLine();
-                    OpenFile open = new OpenFile(opentofile);
-                    textbuilder = new StringBuilder(open.Open());
-                    //Преобразование StringBuilder к String
-                    text = textbuilder.toString();
-                    //Разделение строки по "//"
-                    String[] splittext = text.split("//");
-                    //Размер строки
-                    int length = splittext.length;
-                    //Создание объекта
-                    for (int i = 1; i < length; ) {
-                        String productnamefile = splittext[i++];
-                        String datefile = splittext[i++];
-                        shop.add(new Shop(productnamefile, datefile));
+                    try {
+                        OpenFile open = new OpenFile(opentofile);
+                        textbuilder = new StringBuilder(open.Open());
+                        //Преобразование StringBuilder к String
+                        text = textbuilder.toString();
+                        //Разделение строки по "//"
+                        String[] splittext = text.split("//");
+                        //Размер строки
+                        int length = splittext.length;
+                        //Создание объекта
+                        for (int i = 1; i < length; ) {
+                            String productnamefile = splittext[i++];
+                            String datefile = splittext[i++];
+                            shop.add(new Shop(productnamefile, datefile));
+                        }
+                        System.out.println("Данные из файла прочитаны");
+                    }
+                    catch (IOException e){
+                        System.out.println("Файл невозможно открыть");
                     }
                     break;
 
@@ -110,23 +133,67 @@ public class Main {
                     System.out.println("Введите название файла: ");
                     Scanner savename = new Scanner(System.in);
                     String savetofile = savename.nextLine();
+                    try {
                     for (Shop o : shop) {
                         textbuilder.append("//").append(o.getProductname()).append("//").append(o.getDate());
                     }
                     SaveFile save = new SaveFile(textbuilder.toString(), savetofile);
                     save.Save();
+                    System.out.println("Данные записаны в файл");
+                    }
+                    catch (IOException e){
+                        System.out.println("Невозможно сохранить в файл");
+                    }
                     break;
 
                 //Сортировка по наименованию
                 case 7:
-                    shop.sort(new SortByProductname());
-                    System.out.println("Отсортировано по наименованию");
+                    //Если в коллекции есть данные то предлагает направление сортировки
+                    if(!shop.isEmpty()) {
+                        System.out.println("""
+                                1. По убыванию
+                                2. По возрастанию""");
+                        Scanner sortn = new Scanner(System.in);
+                        int sortnint = sortn.nextInt();
+                        if (sortnint == 1) {
+                            shop.sort(new SortByProductname());
+                            System.out.println("Данные отсортированы по наименованию от A до Z");
+                        } else if (sortnint == 2) {
+                            shop.sort(new SortByProductname1());
+                            System.out.println("Данные отсортированы по наименованию от Z до A");
+                        } else {
+                            System.out.println("Данные не были отсортированы");
+                        }
+                    }
+                    //Если в коллекция пуста
+                    else{
+                        System.out.println("Коллекция пуста");
+                    }
                     break;
 
                 //Сортировка по дате продажи
                 case 8:
-                    shop.sort(new SortByDate());
-                    System.out.println("Отсортировано по дате продажи");
+                    //Если в коллекции есть данные то предлагает направление сортировки
+                    if(!shop.isEmpty()) {
+                        System.out.println("""
+                                1. По убыванию
+                                2. По возрастанию""");
+                        Scanner sortd = new Scanner(System.in);
+                        int sortdint = sortd.nextInt();
+                        if (sortdint == 1) {
+                            shop.sort(new SortByDate());
+                            System.out.println("Данные отсортированы по дате от наименьшего к большему");
+                        } else if (sortdint == 2) {
+                            shop.sort(new SortByDate1());
+                            System.out.println("Данные отсортированы по дате от большего к наименьшему");
+                        } else {
+                            System.out.println("Данные не были отсортированы");
+                        }
+                    }
+                    //Если в коллекция пуста
+                    else{
+                        System.out.println("Коллекция пуста");
+                    }
                     break;
                 default:
                     break;

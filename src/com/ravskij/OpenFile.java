@@ -1,6 +1,7 @@
 package com.ravskij;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.FileInputStream;
 
 public class OpenFile {
 
