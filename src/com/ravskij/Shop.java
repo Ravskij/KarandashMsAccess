@@ -1,10 +1,10 @@
 package com.ravskij;
 
-public class Shop {
+public class Shop{
     private String productname;
     private String date;
 
-    public Shop(String productname, String date){
+    public Shop(String productname, String date) {
         this.productname = productname;
         this.date = date;
     }

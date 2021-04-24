@@ -2,7 +2,7 @@ package com.ravskij;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
 
 public class SaveFile {
 
@@ -30,16 +30,9 @@ public class SaveFile {
         this.filename = filename;
     }
 
-    public void Save() {
-        try {
-            FileOutputStream os = new FileOutputStream(filename);
-            ObjectOutputStream oos = new ObjectOutputStream(os);
-            oos.writeObject(text);
-            oos.close();
-            os.close();
-        }
-        catch (IOException ex) {
-            System.out.println("Исключение при сериализации");
-        }
+    public void Save() throws IOException{
+        FileOutputStream fileOutputStream = new FileOutputStream(filename);
+        fileOutputStream.write(text.getBytes(StandardCharsets.UTF_8));
+        fileOutputStream.close();
     }
 }
