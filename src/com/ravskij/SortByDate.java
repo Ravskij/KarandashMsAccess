@@ -3,9 +3,9 @@ package com.ravskij;
 import java.util.Comparator;
 
 class SortByDate implements Comparator<Shop> {
-    public int compare(Shop obj1, Shop obj2) {
-        String str1 = ((Shop) obj1).getDate();
-        String str2 = ((Shop) obj2).getDate();
+    public int compare(Shop o1, Shop o2) {
+        String str1 = o1.getDate();
+        String str2 = o2.getDate();
         String[] date1 = str1.split("/");
         String[] date2 = str2.split("/");
         int day1 = Integer.parseInt(date1[0]);

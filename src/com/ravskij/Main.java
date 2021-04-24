@@ -2,7 +2,6 @@ package com.ravskij;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -102,7 +101,6 @@ public class Main {
                     for (int i = 1; i < length; ) {
                         String productnamefile = splittext[i++];
                         String datefile = splittext[i++];
-                    //    System.out.println("Наименование " + productnamefile + " дата " + datefile);
                         shop.add(new Shop(productnamefile, datefile));
                     }
                     break;
@@ -121,13 +119,13 @@ public class Main {
 
                 //Сортировка по наименованию
                 case 7:
-                    Collections.sort(shop, new SortByProductname());
+                    shop.sort(new SortByProductname());
                     System.out.println("Отсортировано по наименованию");
                     break;
 
                 //Сортировка по дате продажи
                 case 8:
-                    Collections.sort(shop, new SortByDate());
+                    shop.sort(new SortByDate());
                     System.out.println("Отсортировано по дате продажи");
                     break;
                 default:
