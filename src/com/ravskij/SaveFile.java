@@ -9,7 +9,7 @@ public class SaveFile {
     private String text;
     private String filename;
 
-    public SaveFile(String text, String filename){
+    public SaveFile(String text, String filename) {
         this.text = text;
         this.filename = filename;
     }
@@ -30,7 +30,7 @@ public class SaveFile {
         this.filename = filename;
     }
 
-    public void Save() throws IOException{
+    public void Save() throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(filename);
         fileOutputStream.write(text.getBytes(StandardCharsets.UTF_8));
         fileOutputStream.close();

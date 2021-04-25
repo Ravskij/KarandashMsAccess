@@ -14,27 +14,27 @@ class SortByDate implements Comparator<Shop> {
         int day2 = Integer.parseInt(date2[0]);
         int month2 = Integer.parseInt(date2[1]);
         int age2 = Integer.parseInt(date2[2]);
-        if(age1 > age2){
+        if (age1 > age2) {
             return 1;
         }
-        else if(age1 < age2) {
+        else if (age1 < age2) {
             return -1;
         }
-        else{
-            if(month1 > month2){
+        else {
+            if(month1 > month2) {
                 return 1;
             }
-            else if(month1 < month2) {
+            else if (month1 < month2) {
                 return -1;
             }
-            else{
-                if(day1 > day2){
+            else {
+                if (day1 > day2){
                     return 1;
                 }
-                else if(day1 < day2) {
+                else if (day1 < day2) {
                     return -1;
                 }
-                else{
+                else {
                     return 0;
                 }
             }
@@ -54,27 +54,27 @@ class SortByDate1 implements Comparator<Shop> {
         int day2 = Integer.parseInt(date2[0]);
         int month2 = Integer.parseInt(date2[1]);
         int age2 = Integer.parseInt(date2[2]);
-        if(age1 > age2){
+        if (age1 > age2) {
             return -1;
         }
-        else if(age1 < age2) {
+        else if (age1 < age2) {
             return 1;
         }
-        else{
-            if(month1 > month2){
+        else {
+            if (month1 > month2) {
                 return -1;
             }
-            else if(month1 < month2) {
+            else if (month1 < month2) {
                 return 1;
             }
-            else{
-                if(day1 > day2){
+            else {
+                if (day1 > day2) {
                     return -1;
                 }
-                else if(day1 < day2) {
+                else if (day1 < day2) {
                     return 1;
                 }
-                else{
+                else {
                     return 0;
                 }
             }

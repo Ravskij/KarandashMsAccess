@@ -26,12 +26,12 @@ public class ConnectToAccess {
             Connection con = DriverManager.getConnection(urlstring); //"jdbc:ucanaccess://C:\\Users\\Andrey\\Desktop\\KarandashShop.accdb"
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(tablestring); //"select * from Karandash"
-            while(rs.next()){
+            while(rs.next()) {
                 text = text + rs.getString("basename") + "//" + rs.getString("basedate") + "//";
             }
             con.close();
         }
-        catch (SQLException e){
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return text;

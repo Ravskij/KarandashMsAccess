@@ -165,7 +165,7 @@ public class Main {
                             System.out.println("Данные не были отсортированы");
                         }
                     }
-                    //Если в коллекция пуста
+                    //Если коллекция пуста
                     else{
                         System.out.println("Коллекция пуста");
                     }
@@ -190,7 +190,7 @@ public class Main {
                             System.out.println("Данные не были отсортированы");
                         }
                     }
-                    //Если в коллекция пуста
+                    //Если коллекция пуста
                     else{
                         System.out.println("Коллекция пуста");
                     }
@@ -204,18 +204,25 @@ public class Main {
                     System.out.println("Введите название таблицы: ");
                     Scanner inputtable = new Scanner(System.in);
                     String selecttable = inputtable.nextLine();
+                    //Создание объекта
                     ConnectToAccess cta = new ConnectToAccess(urltoconnect, selecttable);
+                    //Текст из msAccess
                     text = cta.ConnectNOpen();
                     System.out.println(text);
                     String[] splittext = text.split("//");
                     //Размер строки
                     int length = splittext.length;
-                    //Создание объекта
+                    //Создание добавление новго объекта в коллекцию
                     for (int i = 1; i < length; ) {
                         String productnamefile = splittext[i++];
                         String datefile = splittext[i++];
                         shop.add(new Shop(productnamefile, datefile));
                     }
+                    break;
+
+                //Сохранить Коллекцию в msAccess
+                case 10:
+                    //ведутся строительыне работы, объезжайте
                     break;
                 default:
                     break;

@@ -1,6 +1,6 @@
 package com.ravskij;
 
-public class Shop{
+public class Shop {
     private String productname;
     private String date;
 
