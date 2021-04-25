@@ -1,15 +1,12 @@
 package com.ravskij;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
-
-        ConnectToAccess cta = new ConnectToAccess();
+    public static void main(String[] args) {
         //Создание Коллекции shop
         ArrayList<Shop> shop = new ArrayList<>();
         //Выбор пункта "меню"
@@ -26,7 +23,8 @@ public class Main {
                     5. Открыть файл
                     6. Сохранить файл
                     7. Сортировка по наименованию
-                    8. Сортировка по дате продажи""");
+                    8. Сортировка по дате продажи
+                    9. Открыть msAccess""");
             //Выбор пункта меню через консоль
             Scanner console = new Scanner(System.in);
             number = console.nextInt();
@@ -195,6 +193,28 @@ public class Main {
                     //Если в коллекция пуста
                     else{
                         System.out.println("Коллекция пуста");
+                    }
+                    break;
+
+                //Открыть msAccess
+                case 9:
+                    System.out.println("Введите название файла целиком: ");
+                    Scanner inputurl = new Scanner(System.in);
+                    String urltoconnect = inputurl.nextLine();
+                    System.out.println("Введите название таблицы: ");
+                    Scanner inputtable = new Scanner(System.in);
+                    String selecttable = inputtable.nextLine();
+                    ConnectToAccess cta = new ConnectToAccess(urltoconnect, selecttable);
+                    text = cta.ConnectNOpen();
+                    System.out.println(text);
+                    String[] splittext = text.split("//");
+                    //Размер строки
+                    int length = splittext.length;
+                    //Создание объекта
+                    for (int i = 1; i < length; ) {
+                        String productnamefile = splittext[i++];
+                        String datefile = splittext[i++];
+                        shop.add(new Shop(productnamefile, datefile));
                     }
                     break;
                 default:
