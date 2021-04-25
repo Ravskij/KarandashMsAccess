@@ -51,7 +51,6 @@ public class ConnectToAccess {
             while(rs.next()) {
                 countid = rs.getInt("baseid") + 1;
             }
-            System.out.println(countid);
             for (int num = 1; num < length; ) {
                 String textforsave = "INSERT INTO " + selecttable + " (baseid, basename, basedate) \n" +
                         " VALUES (" + countid + ", '" + splittext[num++] + "', '" + splittext[num++] + "');";
