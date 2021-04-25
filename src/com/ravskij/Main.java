@@ -26,7 +26,8 @@ public class Main {
                     8. Сортировка по дате продажи
                     9. Создать таблицу в msAccess
                     10. Открыть таблицу msAccess
-                    11. Сохранить в таблицу msAccess""");
+                    11. Сохранить в таблицу msAccess
+                    12. Очистить коллекцию""");
             //Выбор пункта меню через консоль
             Scanner console = new Scanner(System.in);
             number = console.nextInt();
@@ -69,7 +70,7 @@ public class Main {
                     catch (IndexOutOfBoundsException e){
                         System.out.println("Невозможно добавить данные в " + index2str + " позицию");
                     }
-                    catch (NumberFormatException ex){
+                    catch (NumberFormatException ex) {
                         System.out.println("Введите число");
                     }
                     break;
@@ -89,19 +90,25 @@ public class Main {
                     catch (IndexOutOfBoundsException e){
                         System.out.println("Невозможно удалить данные из " + index3str + " позиции");
                     }
-                    catch (NumberFormatException ex){
+                    catch (NumberFormatException ex) {
                         System.out.println("Введите число");
                     }
                     break;
 
                 //Вывод данных
                 case 4:
-                    for (Shop o : shop){
-                        System.out.println("Наименование: " + o.getProductname() + " дата продажи " + o.getDate());
+                    if(!shop.isEmpty()) {
+                        for (Shop o : shop){
+                            System.out.println("Наименование: " + o.getProductname() + " дата продажи " + o.getDate());
+                        }
+                    }
+                    //Если коллекция пуста
+                    else {
+                        System.out.println("Коллекция пуста");
                     }
                     break;
 
-                //Открытия файла
+                //Открытие файла
                 case 5:
                     //Очистка коллекции
                     shop.clear();
@@ -213,44 +220,62 @@ public class Main {
 
                 //Открыть msAccess
                 case 10:
-                    System.out.println("Введите название файла целиком: ");
-                    Scanner inputurl = new Scanner(System.in);
-                    String urltoconnect = inputurl.nextLine();
-                    System.out.println("Введите название таблицы: ");
-                    Scanner inputtable = new Scanner(System.in);
-                    String selecttable = inputtable.nextLine();
-                    //Создание объекта
-                    ConnectToAccess cta = new ConnectToAccess(urltoconnect, selecttable);
-                    //Текст из msAccess
-                    text = cta.ConnectNOpen();
-                    System.out.println(text);
-                    String[] splittext = text.split("//");
-                    //Размер строки
-                    int length = splittext.length;
-                    //Создание добавление новго объекта в коллекцию
-                    for (int i = 1; i < length; ) {
-                        String productnamefile = splittext[i++];
-                        String datefile = splittext[i++];
-                        shop.add(new Shop(productnamefile, datefile));
+                    if(!shop.isEmpty()) {
+                        System.out.println("Введите название файла целиком: ");
+                        Scanner inputurl = new Scanner(System.in);
+                        String urltoconnect = inputurl.nextLine();
+                        System.out.println("Введите название таблицы: ");
+                        Scanner inputtable = new Scanner(System.in);
+                        String selecttable = inputtable.nextLine();
+                        //Создание объекта
+                        ConnectToAccess cta = new ConnectToAccess(urltoconnect, selecttable);
+                        //Текст из msAccess
+                        text = cta.ConnectNOpen();
+                        String[] splittext = text.split("//");
+                        //Размер строки
+                        int length = splittext.length;
+                        //Создание добавление новго объекта в коллекцию
+                        for (int i = 1; i < length; ) {
+                            String productnamefile = splittext[i++];
+                            String datefile = splittext[i++];
+                            shop.add(new Shop(productnamefile, datefile));
+                        }
+                    }
+                    else {
+                        System.out.println("Коллекция пуста");
                     }
                     break;
 
                 //Сохранить Коллекцию в msAccess
                 case 11:
-                    System.out.println("Введите название файла целиком: ");
-                    Scanner inputurlsave = new Scanner(System.in);
-                    String urltoconnectsave = inputurlsave.nextLine();
-                    System.out.println("Введите название таблицы: ");
-                    Scanner inputtablesave = new Scanner(System.in);
-                    String selecttablesave = inputtablesave.nextLine();
-                    for (Shop o : shop) {
-                        textbuilder.append("//").append(o.getProductname()).append("//").append(o.getDate());
+                    if(!shop.isEmpty()) {
+                        System.out.println("Введите название файла целиком: ");
+                        Scanner inputurlsave = new Scanner(System.in);
+                        String urltoconnectsave = inputurlsave.nextLine();
+                        System.out.println("Введите название таблицы: ");
+                        Scanner inputtablesave = new Scanner(System.in);
+                        String selecttablesave = inputtablesave.nextLine();
+                        for (Shop o : shop) {
+                            textbuilder.append("//").append(o.getProductname()).append("//").append(o.getDate());
+                        }
+                        ConnectToAccess ctasave = new ConnectToAccess(urltoconnectsave, selecttablesave);
+                        ctasave.ConnectNSave(textbuilder.toString());
                     }
-                    ConnectToAccess ctasave = new ConnectToAccess(urltoconnectsave, selecttablesave);
-                    ctasave.ConnectNSave(textbuilder.toString());
-                //    SaveFile save = new SaveFile(textbuilder.toString(), savetofile);
-                //    save.Save();
-                    //Создание объекта
+                    //Если коллекция пуста
+                    else {
+                        System.out.println("Коллекция пуста");
+                    }
+                    break;
+
+                //Очистка коллекции
+                case 12:
+                    if(!shop.isEmpty()) {
+                        shop.clear();
+                        System.out.println("Коллекция очищена");
+                    }
+                    else {
+                        System.out.println("Коллекция пуста");
+                    }
                     break;
                 default:
                     break;

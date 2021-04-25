@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 public class ConnectToAccess {
 
     private String urltoconnect = "";
-    private String urlstring = "jdbc:ucanaccess://C:\\Users\\Andrey\\Desktop\\";
+    private String urlstring = "jdbc:ucanaccess://H:\\programs\\Ij\\project\\";
     private String selecttable = "";
     private String tablestring = "select * from ";
     private String text = "//";
@@ -23,7 +23,7 @@ public class ConnectToAccess {
         urlstring = urlstring + urltoconnect;
         tablestring = tablestring + selecttable;
         try {
-            Connection con = DriverManager.getConnection(urlstring); //"jdbc:ucanaccess://C:\\Users\\Andrey\\Desktop\\KarandashShop.accdb"
+            Connection con = DriverManager.getConnection(urlstring); //"jdbc:ucanaccess://H:\programs\Ij\project\\KarandashShop.accdb"
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(tablestring); //"select * from Karandash"
             while(rs.next()) {
@@ -41,26 +41,23 @@ public class ConnectToAccess {
     public void ConnectNSave(String textcollection) {
         urlstring = urlstring + urltoconnect;
         tablestring = tablestring + selecttable;
-        int i = 0;
-        int f = 0;
         try {
-            Connection con = DriverManager.getConnection(urlstring); //"jdbc:ucanaccess://C:\\Users\\Andrey\\Desktop\\KarandashShop.accdb"
+            Connection con = DriverManager.getConnection(urlstring); //"jdbc:ucanaccess://H:\programs\Ij\project\\KarandashShop.accdb"
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(tablestring); //"select * from Karandash"
-            while(rs.next()) {
-                i = rs.getInt("baseid") + 1;
-            }
-        //    String textforsave = "INSERT INTO " + selecttable + " (baseid, basename, basedate) \n" +
-        //            " VALUES (" + i + ", 'Headsfsdfsdfsfsdfsdd', '25/04/2021');";
             String[] splittext = textcollection.split("//");
             int length = splittext.length;
-            for (int q = 1; q < length; ) {
+            int countid = 1;
+            while(rs.next()) {
+                countid = rs.getInt("baseid") + 1;
+            }
+            System.out.println(countid);
+            for (int num = 1; num < length; ) {
                 String textforsave = "INSERT INTO " + selecttable + " (baseid, basename, basedate) \n" +
-                        " VALUES (" + f + ", '" + splittext[q++] + "', '" + splittext[q++] + "');";
-                f++;
+                        " VALUES (" + countid + ", '" + splittext[num++] + "', '" + splittext[num++] + "');";
+                countid++;
                 stmt.executeUpdate(textforsave); //"select * from Karandash"
             }
-        //    stmt.executeUpdate(textforsave); //"select * from Karandash"
             con.close();
             System.out.println("Table successfully saved");
         }
@@ -73,7 +70,7 @@ public class ConnectToAccess {
         urlstring = urlstring + urltoconnect;
         tablestring = tablestring + selecttable;
         try {
-            Connection con = DriverManager.getConnection(urlstring); //"jdbc:ucanaccess://C:\\Users\\Andrey\\Desktop\\KarandashShop.accdb"
+            Connection con = DriverManager.getConnection(urlstring); //"jdbc:ucanaccess://H:\programs\Ij\project\\KarandashShop.accdb"
             Statement stmt = con.createStatement();
             String SQL = "CREATE TABLE " + tablename + "  \n" +
                     "(  \n" +
