@@ -24,7 +24,9 @@ public class Main {
                     6. Сохранить файл
                     7. Сортировка по наименованию
                     8. Сортировка по дате продажи
-                    9. Открыть msAccess""");
+                    9. Создать таблицу в msAccess
+                    10. Открыть таблицу msAccess
+                    11. Сохранить в таблицу msAccess""");
             //Выбор пункта меню через консоль
             Scanner console = new Scanner(System.in);
             number = console.nextInt();
@@ -196,8 +198,21 @@ public class Main {
                     }
                     break;
 
-                //Открыть msAccess
+                //Создать Таблицу в msAccess
                 case 9:
+                    System.out.println("Введите название файла целиком: ");
+                    Scanner inputurlcreate = new Scanner(System.in);
+                    String urltoconnectcreate = inputurlcreate.nextLine();
+                    System.out.println("Введите название таблицы: ");
+                    Scanner inputtablecreate = new Scanner(System.in);
+                    String selecttablecreate = inputtablecreate.nextLine();
+                    //Создание объекта
+                    ConnectToAccess ctacreate = new ConnectToAccess(urltoconnectcreate, selecttablecreate);
+                    ctacreate.ConnectNCreate(selecttablecreate);
+                    break;
+
+                //Открыть msAccess
+                case 10:
                     System.out.println("Введите название файла целиком: ");
                     Scanner inputurl = new Scanner(System.in);
                     String urltoconnect = inputurl.nextLine();
@@ -221,8 +236,21 @@ public class Main {
                     break;
 
                 //Сохранить Коллекцию в msAccess
-                case 10:
-                    //ведутся строительыне работы, объезжайте
+                case 11:
+                    System.out.println("Введите название файла целиком: ");
+                    Scanner inputurlsave = new Scanner(System.in);
+                    String urltoconnectsave = inputurlsave.nextLine();
+                    System.out.println("Введите название таблицы: ");
+                    Scanner inputtablesave = new Scanner(System.in);
+                    String selecttablesave = inputtablesave.nextLine();
+                    for (Shop o : shop) {
+                        textbuilder.append("//").append(o.getProductname()).append("//").append(o.getDate());
+                    }
+                    ConnectToAccess ctasave = new ConnectToAccess(urltoconnectsave, selecttablesave);
+                    ctasave.ConnectNSave(textbuilder.toString());
+                //    SaveFile save = new SaveFile(textbuilder.toString(), savetofile);
+                //    save.Save();
+                    //Создание объекта
                     break;
                 default:
                     break;
